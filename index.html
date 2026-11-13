@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#8a6419">
+<title>Laboratório de Lógica | Kaleidóptico 360.º</title>
+<style>
+:root{--gold:#b8892e;--gold-dark:#765313;--gold-pale:#f7efd9;--ink:#242424;--muted:#666;--line:#e5dfd2;--paper:#fff;--bg:#f5f4f0;--green:#24734a;--red:#b33b35;--blue:#315d83}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(120deg,#735116,#b8892e);color:#fff;padding:28px 20px 24px}
+.wrap{max-width:1080px;margin:auto;padding:0 18px}
+.brand{font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:800;opacity:.9}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin:10px 0}
+header p{max-width:720px;margin:10px 0 0;color:#fff8e9}
+nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.navinner{display:flex;gap:6px;overflow-x:auto;padding:9px 0}
+.navbtn{border:0;background:transparent;padding:10px 14px;border-radius:9px;white-space:nowrap;font-weight:700;color:#514a3d;cursor:pointer}
+.navbtn.active,.navbtn:hover{background:var(--gold-pale);color:var(--gold-dark)}
+main{padding:26px 0 54px}.panel{display:none}.panel.active{display:block}
+h2{font-size:1.65rem;margin:0 0 8px}h3{margin:20px 0 8px;font-size:1.15rem}
+.lead{color:var(--muted);margin:0 0 20px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px;margin:14px 0;box-shadow:0 3px 12px #39280008}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.operator{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}
+.symbol{font-size:1.65rem;font-weight:800;color:var(--gold-dark)}
+.pill{display:inline-block;border-radius:999px;padding:3px 10px;background:var(--gold-pale);color:var(--gold-dark);font-size:.78rem;font-weight:800}
+button,.button{border:0;border-radius:10px;background:var(--gold-dark);color:#fff;padding:11px 16px;font-weight:750;cursor:pointer;font-size:.95rem}
+button:hover,.button:hover{filter:brightness(1.1)}button:disabled{opacity:.45;cursor:not-allowed}
+button.secondary{background:#eee9df;color:#403a30}button.outline{background:#fff;border:1px solid var(--line);color:#403a30}
+select,input{font:inherit;border:1px solid #cfc7b8;border-radius:8px;padding:8px;background:#fff;color:var(--ink);min-width:72px}
+.tablewrap{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;min-width:360px;background:#fff}
+th,td{border:1px solid #d9d2c5;text-align:center;padding:9px 10px}
+th{background:#f4eddf;font-weight:800}
+td select{width:100%;min-width:75px}
+td.good{background:#e8f4ec}td.bad{background:#fbe9e7}
+.feedback{padding:12px 14px;border-radius:10px;margin:12px 0;background:#f2f0eb}
+.feedback.good{background:#e8f4ec;color:#175b37}.feedback.bad{background:#fbe9e7;color:#8e2924}
+.controls{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.progress{height:8px;background:#e8e3d9;border-radius:99px;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;background:var(--gold);width:0}
+.question{padding:16px;border:1px solid var(--line);border-radius:12px;margin:12px 0;background:#fff}
+.question p{margin:0 0 10px;font-weight:700}
+.small{font-size:.88rem;color:var(--muted)}.formula{font-family:Georgia,serif;font-size:1.3rem;font-weight:bold;letter-spacing:.02em}
+.callout{border-left:4px solid var(--gold);background:#fbf7ed;padding:12px 15px;border-radius:0 10px 10px 0}
+footer{text-align:center;color:#777;padding:20px;font-size:.85rem}
+.hidden{display:none!important}
+@media(max-width:600px){header{padding:23px 0}.card{padding:15px}th,td{padding:7px 6px}.navbtn{padding:9px 11px}}
+@media print{nav,.controls,button,footer{display:none!important}body{background:#fff}.panel{display:block!important;break-inside:avoid}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="brand">Kaleidóptico 360.º · Filosofia · 10.º ano</div>
+<h1>Laboratório de Lógica</h1>
+<p>Aprende a interpretar operadores lógicos, constrói tabelas de verdade e testa a validade verofuncional das proposições.</p>
+</div></header>
+<nav><div class="wrap navinner">
+<button class="navbtn active" data-tab="aprender">1. Aprender</button>
+<button class="navbtn" data-tab="treinar">2. Treinar</button>
+<button class="navbtn" data-tab="construir">3. Construir tabelas</button>
+<button class="navbtn" data-tab="avaliar">4. Avaliar</button>
+</div></nav>
+<main class="wrap">
+<section id="aprender" class="panel active">
+<h2>Aprender: operadores verofuncionais</h2><p class="lead">O valor lógico de uma proposição composta depende dos valores lógicos das proposições simples que a constituem e do operador utilizado.</p>
+<div class="card">
+<h3>Valores lógicos</h3>
+<p><b>V</b> significa verdadeiro; <b>F</b> significa falso. Com duas proposições simples, P e Q, existem quatro combinações possíveis: VV, VF, FV e FF.</p>
+<div class="tablewrap"><table><thead><tr><th>P</th><th>Q</th></tr></thead><tbody><tr><td>V</td><td>V</td></tr><tr><td>V</td><td>F</td></tr><tr><td>F</td><td>V</td></tr><tr><td>F</td><td>F</td></tr></tbody></table></div>
+</div>
+<div class="grid">
+<div class="operator"><div class="symbol">¬P</div><b>Negação</b><p>Inverte o valor lógico de P.</p><p class="small">P: V → ¬P: F<br>P: F → ¬P: V</p></div>
+<div class="operator"><div class="symbol">P ∧ Q</div><b>Conjunção</b><p>É verdadeira apenas quando ambas as proposições são verdadeiras.</p><p class="small">V apenas na linha VV.</p></div>
+<div class="operator"><div class="symbol">P ∨ Q</div><b>Disjunção inclusiva</b><p>É verdadeira quando pelo menos uma das proposições é verdadeira.</p><p class="small">Só é falsa na linha FF.</p></div>
+<div class="operator"><div class="symbol">P → Q</div><b>Condicional</b><p>Só é falsa quando o antecedente é verdadeiro e o consequente é falso.</p><p class="small">F apenas na linha VF.</p></div>
+<div class="operator"><div class="symbol">P ↔ Q</div><b>Bicondicional</b><p>É verdadeira quando P e Q têm o mesmo valor lógico.</p><p class="small">V nas linhas VV e FF.</p></div>
+</div>
+<div class="card"><h3>Tabelas de referência</h3><div class="tablewrap"><table><thead><tr><th>P</th><th>Q</th><th>¬P</th><th>P ∧ Q</th><th>P ∨ Q</th><th>P → Q</th><th>P ↔ Q</th></tr></thead><tbody>
+<tr><td>V</td><td>V</td><td>F</td><td>V</td><td>V</td><td>V</td><td>V</td></tr>
+<tr><td>V</td><td>F</td><td>F</td><td>F</td><td>V</td><td>F</td><td>F</td></tr>
+<tr><td>F</td><td>V</td><td>V</td><td>F</td><td>V</td><td>V</td><td>F</td></tr>
+<tr><td>F</td><td>F</td><td>V</td><td>F</td><td>F</td><td>V</td><td>V</td></tr>
+</tbody></table></div></div>
+<div class="callout"><b>Atenção à condicional:</b> a proposição «Se P, então Q» não afirma que P e Q são verdadeiras. Apenas exclui a possibilidade de P ser verdadeira e Q ser falsa.</div>
+<h3>Classificação das proposições</h3>
+<div class="grid">
+<div class="operator"><b>Tautologia</b><p>É verdadeira em todas as interpretações possíveis.</p><span class="formula">P ∨ ¬P</span></div>
+<div class="operator"><b>Contradição</b><p>É falsa em todas as interpretações possíveis.</p><span class="formula">P ∧ ¬P</span></div>
+<div class="operator"><b>Contingência</b><p>É verdadeira em algumas interpretações e falsa noutras.</p><span class="formula">P ∧ Q</span></div>
+</div>
+<div class="controls"><button onclick="goTab('treinar')">Começar a treinar →</button></div>
+</section>
+
+<section id="treinar" class="panel">
+<h2>Treinar: aplica as regras</h2><p class="lead">Escolhe o valor lógico correto em cada caso. Recebes feedback e uma explicação após corrigires.</p>
+<div class="card">
+<div class="pill" id="practiceCount">Exercício 1 de 10</div>
+<div class="progress"><span id="practiceProgress"></span></div>
+<div id="practiceQuestion" class="question"></div>
+<div class="controls"><button id="checkPractice">Verificar resposta</button><button class="secondary hidden" id="nextPractice">Próximo exercício →</button><span id="practiceScore" class="small"></span></div>
+<div id="practiceFeedback" aria-live="polite"></div>
+</div>
+</section>
+
+<section id="construir" class="panel">
+<h2>Construir tabelas de verdade</h2><p class="lead">Completa as colunas intermédias e a coluna da proposição principal. As células aceitam V ou F.</p>
+<div class="card">
+<label for="tableExercise"><b>Escolhe uma tabela:</b></label>
+<select id="tableExercise">
+<option value="0">A — ¬P ∨ Q</option>
+<option value="1">B — (P → Q) ↔ (¬Q → ¬P)</option>
+<option value="2">C — (P ∧ Q) → R</option>
+<option value="3">D — (P ∨ Q) ∧ ¬R</option>
+</select>
+<p id="tableDescription" class="small"></p>
+<div id="truthTable" class="tablewrap"></div>
+<div class="controls"><button id="checkTable">Corrigir tabela</button><button class="secondary" id="resetTable">Limpar respostas</button></div>
+<div id="tableFeedback" aria-live="polite"></div>
+</div>
+<div class="callout"><b>Estratégia:</b> começa pelas proposições simples; calcula depois as subfórmulas e deixa a coluna da proposição principal para o fim. Respeita os parênteses e o âmbito da negação.</div>
+</section>
+
+<section id="avaliar" class="panel">
+<h2>Avaliar: desafio final</h2><p class="lead">Responde a 10 questões sem consultar as explicações. No final, verás a classificação e a correção.</p>
+<div class="card">
+<div id="assessmentIntro"><p>O desafio inclui interpretação de operadores, valores lógicos e classificação de proposições. Cada resposta correta vale 10 pontos.</p><button id="startAssessment">Iniciar avaliação</button></div>
+<div id="assessmentArea" class="hidden"><div class="progress"><span id="assessmentProgress"></span></div><div id="assessmentQuestions"></div><div class="controls"><button id="submitAssessment">Terminar e corrigir</button></div></div>
+<div id="assessmentResult" aria-live="polite"></div>
+</div>
+</section>
+</main>
+<footer>Kaleidóptico 360.º · Laboratório de Lógica · Recurso pedagógico para o 10.º ano</footer>
+<script>
+const $=s=>document.querySelector(s);
+function goTab(id){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>goTab(b.dataset.tab)));
+const V='V',F='F';
+function neg(a){return a===V?F:V}
+function calc(op,a,b){switch(op){case'∧':return a===V&&b===V?V:F;case'∨':return a===V||b===V?V:F;case'→':return a===V&&b===F?F:V;case'↔':return a===b?V:F;}}
+const practice=[
+['P é V. Qual é o valor de ¬P?','V','F','A negação inverte o valor lógico: se P é verdadeira, ¬P é falsa.'],
+['P é V e Q é V. Qual é o valor de P ∧ Q?','V','V','A conjunção é verdadeira quando ambas as proposições são verdadeiras.'],
+['P é V e Q é F. Qual é o valor de P ∧ Q?','F','F','Basta uma das proposições ser falsa para a conjunção ser falsa.'],
+['P é F e Q é V. Qual é o valor de P ∨ Q?','V','V','A disjunção inclusiva é verdadeira se pelo menos uma proposição for verdadeira.'],
+['P é F e Q é F. Qual é o valor de P ∨ Q?','F','F','A disjunção só é falsa quando ambas as proposições são falsas.'],
+['P é V e Q é F. Qual é o valor de P → Q?','F','F','A condicional é falsa precisamente quando o antecedente é verdadeiro e o consequente é falso.'],
+['P é F e Q é V. Qual é o valor de P → Q?','V','V','Com antecedente falso, a condicional é verdadeira, independentemente do valor do consequente.'],
+['P é V e Q é V. Qual é o valor de P ↔ Q?','V','V','A bicondicional é verdadeira quando as duas proposições têm o mesmo valor lógico.'],
+['P é V e Q é F. Qual é o valor de P ↔ Q?','F','F','Como P e Q têm valores diferentes, a bicondicional é falsa.'],
+['Qual é a classificação de P ∨ ¬P?','Tautologia','Tautologia','Em qualquer interpretação, P ou a sua negação é verdadeira.']
+];
+let pi=0,ps=0,practiceAnswered=false;
+function renderPractice(){
+$('#practiceCount').textContent=`Exercício ${pi+1} de ${practice.length}`;
+$('#practiceProgress').style.width=`${pi/practice.length*100}%`;
+const q=practice[pi];
+$('#practiceQuestion').innerHTML=`<p>${q[0]}</p><div class="controls"><label><input type="radio" name="panswer" value="V"> Verdadeiro (V)</label><label><input type="radio" name="panswer" value="F"> Falso (F)</label>${pi===9?'<label><input type="radio" name="panswer" value="Tautologia"> Tautologia</label>':''}</div>`;
+$('#practiceFeedback').innerHTML='';$('#nextPractice').classList.add('hidden');$('#checkPractice').disabled=false;practiceAnswered=false;
+$('#practiceScore').textContent=`Respostas corretas: ${ps}`;
+}
+$('#checkPractice').onclick=()=>{if(practiceAnswered)return;const a=$('input[name="panswer"]:checked');if(!a){$('#practiceFeedback').innerHTML='<div class="feedback bad">Seleciona uma resposta antes de corrigir.</div>';return;}const q=practice[pi],ok=a.value===q[1];if(ok)ps++;practiceAnswered=true;$('#practiceFeedback').innerHTML=`<div class="feedback ${ok?'good':'bad'}"><b>${ok?'Correto!':'Ainda não.'}</b> ${q[3]}<br>Resposta correta: <b>${q[1]}</b>.</div>`;$('#checkPractice').disabled=true;$('#nextPractice').classList.remove('hidden');$('#practiceScore').textContent=`Respostas corretas: ${ps}`;};
+$('#nextPractice').onclick=()=>{pi=(pi+1)%practice.length;if(pi===0)ps=0;renderPractice();};renderPractice();
+
+const exercises=[
+{desc:'Duas variáveis. Calcula primeiro ¬P e, depois, a disjunção ¬P ∨ Q.',vars:['P','Q'],cols:['P','Q','¬P','¬P ∨ Q'],rows:[[V,V],[V,F],[F,V],[F,F]],fn:r=>[r[0],r[1],neg(r[0]),calc('∨',neg(r[0]),r[1])]},
+{desc:'Duas variáveis. Calcula as duas condicionais e compara os seus valores através da bicondicional.',vars:['P','Q'],cols:['P','Q','P → Q','¬Q','¬Q → ¬P','(P → Q) ↔ (¬Q → ¬P)'],rows:[[V,V],[V,F],[F,V],[F,F]],fn:r=>{let a=calc('→',r[0],r[1]),nq=neg(r[1]),b=calc('→',nq,neg(r[0]));return[r[0],r[1],a,nq,b,calc('↔',a,b)]}},
+{desc:'Três variáveis. Calcula a conjunção P ∧ Q e, depois, a condicional (P ∧ Q) → R.',vars:['P','Q','R'],cols:['P','Q','R','P ∧ Q','(P ∧ Q) → R'],rows:[[V,V,V],[V,V,F],[V,F,V],[V,F,F],[F,V,V],[F,V,F],[F,F,V],[F,F,F]],fn:r=>{let a=calc('∧',r[0],r[1]);return[...r,a,calc('→',a,r[2])]}},
+{desc:'Três variáveis. Calcula P ∨ Q, nega R e combina os resultados através da conjunção.',vars:['P','Q','R'],cols:['P','Q','R','P ∨ Q','¬R','(P ∨ Q) ∧ ¬R'],rows:[[V,V,V],[V,V,F],[V,F,V],[V,F,F],[F,V,V],[F,V,F],[F,F,V],[F,F,F]],fn:r=>{let a=calc('∨',r[0],r[1]),b=neg(r[2]);return[...r,a,b,calc('∧',a,b)]}}
+];
+let currentExercise=0;
+function renderTable(){
+const e=exercises[currentExercise];$('#tableDescription').textContent=e.desc;
+let h='<table><thead><tr>'+e.cols.map(c=>`<th>${c}</th>`).join('')+'</tr></thead><tbody>';
+e.rows.forEach((r,i)=>{h+='<tr>'+r.map(v=>`<td><b>${v}</b></td>`).join('');for(let j=e.vars.length;j<e.cols.length;j++)h+=`<td><select aria-label="Linha ${i+1}, ${e.cols[j]}"><option value="">—</option><option>V</option><option>F</option></select></td>`;h+='</tr>';});
+$('#truthTable').innerHTML=h+'</tbody></table>';$('#tableFeedback').innerHTML='';
+}
+$('#tableExercise').onchange=e=>{currentExercise=+e.target.value;renderTable();};
+$('#resetTable').onclick=renderTable;
+$('#checkTable').onclick=()=>{
+const e=exercises[currentExercise],rows=[...$('#truthTable tbody').rows];let correct=0,total=0;
+rows.forEach((tr,i)=>{const expected=e.fn(e.rows[i]);const selects=[...tr.querySelectorAll('select')];selects.forEach((s,j)=>{const exp=expected[e.vars.length+j];total++;s.disabled=true;if(s.value===exp){correct++;s.parentElement.className='good';}else{s.parentElement.className='bad';const note=document.createElement('div');note.className='small';note.textContent=`Correto: ${exp}`;s.parentElement.appendChild(note);}});});
+$('#tableFeedback').innerHTML=`<div class="feedback ${correct===total?'good':'bad'}"><b>${correct===total?'Excelente!':'Tabela corrigida.'}</b> Acertaste ${correct} de ${total} células (${Math.round(correct/total*100)}%). ${correct===total?'Construíste corretamente todas as colunas.':'Observa as indicações nas células incorretas e tenta novamente, se necessário.'}</div>`;
+};
+
+const assessmentBank=[
+{q:'Quando é que uma conjunção P ∧ Q é verdadeira?',o:['Quando P e Q são verdadeiras','Quando pelo menos uma é verdadeira','Quando P é falsa','Sempre'],a:0,e:'A conjunção só é verdadeira na interpretação VV.'},
+{q:'Em que caso é falsa a condicional P → Q?',o:['P=F e Q=F','P=F e Q=V','P=V e Q=F','P=V e Q=V'],a:2,e:'A única linha falsa da condicional é VF.'},
+{q:'Qual é o valor de ¬P quando P é falsa?',o:['F','V','Depende de Q','Não é possível determinar'],a:1,e:'A negação inverte o valor lógico.'},
+{q:'A disjunção inclusiva P ∨ Q é falsa quando…',o:['P e Q são verdadeiras','P é verdadeira e Q falsa','P é falsa e Q verdadeira','P e Q são falsas'],a:3,e:'A disjunção inclusiva só é falsa em FF.'},
+{q:'Quando é verdadeira a bicondicional P ↔ Q?',o:['Quando os valores são diferentes','Quando os valores são iguais','Apenas em VF','Apenas em FV'],a:1,e:'A bicondicional é verdadeira quando P e Q têm o mesmo valor.'},
+{q:'Como se classifica P ∨ ¬P?',o:['Contradição','Contingência','Tautologia','Condicional'],a:2,e:'P ou não P é sempre verdadeira.'},
+{q:'Como se classifica P ∧ ¬P?',o:['Tautologia','Contradição','Contingência','Bicondicional'],a:1,e:'P e não P não podem ser simultaneamente verdadeiras.'},
+{q:'Quantas linhas tem uma tabela com três variáveis proposicionais?',o:['3','4','6','8'],a:3,e:'O número de linhas é 2ⁿ. Para três variáveis: 2³ = 8.'},
+{q:'Se P=F e Q=V, qual é o valor de P → Q?',o:['V','F','Indeterminado','Depende de R'],a:0,e:'Uma condicional com antecedente falso é verdadeira.'},
+{q:'Uma proposição que é verdadeira em algumas interpretações e falsa noutras é…',o:['Tautologia','Contradição','Contingência','Negação'],a:2,e:'Essa é a definição de contingência.'}
+];
+let assessmentItems=[];
+$('#startAssessment').onclick=()=>{assessmentItems=[...assessmentBank].sort(()=>Math.random()-.5);$('#assessmentIntro').classList.add('hidden');$('#assessmentArea').classList.remove('hidden');$('#assessmentQuestions').innerHTML=assessmentItems.map((q,i)=>`<div class="question" data-q="${i}"><p>${i+1}. ${q.q}</p>${q.o.map((o,j)=>`<label style="display:block;margin:7px 0"><input type="radio" name="a${i}" value="${j}"> ${o}</label>`).join('')}</div>`).join('');};
+$('#submitAssessment').onclick=()=>{let score=0,answered=0;let details='';assessmentItems.forEach((q,i)=>{const chosen=$(`input[name="a${i}"]:checked`);const ok=chosen&&+chosen.value===q.a;if(chosen)answered++;if(ok)score+=10;details+=`<div class="feedback ${ok?'good':'bad'}"><b>${i+1}. ${ok?'Correto':'Incorreto — '+q.o[q.a]}</b><br>${q.e}</div>`;});$('#assessmentArea').classList.add('hidden');$('#assessmentResult').innerHTML=`<div class="card"><span class="pill">Resultado final</span><h2>${score}/100 pontos</h2><p>Respondeste a ${answered} das 10 questões.</p><div class="progress"><span style="width:${score}%"></span></div><h3>Correção comentada</h3>${details}<button onclick="location.reload()">Repetir avaliação</button></div>`;};
+$('#tableExercise').value='0';renderTable();
+</script>
+</body></html>

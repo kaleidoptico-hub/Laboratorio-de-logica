@@ -139,7 +139,7 @@ const V='V',F='F';
 function neg(a){return a===V?F:V}
 function calc(op,a,b){switch(op){case'∧':return a===V&&b===V?V:F;case'∨':return a===V||b===V?V:F;case'→':return a===V&&b===F?F:V;case'↔':return a===b?V:F;}}
 const practice=[
-['P é V. Qual é o valor de ¬P?','V','F','A negação inverte o valor lógico: se P é verdadeira, ¬P é falsa.'],
+['P é V. Qual é o valor de ¬P?','F','F','A negação inverte o valor lógico: se P é verdadeira, ¬P é falsa.'],
 ['P é V e Q é V. Qual é o valor de P ∧ Q?','V','V','A conjunção é verdadeira quando ambas as proposições são verdadeiras.'],
 ['P é V e Q é F. Qual é o valor de P ∧ Q?','F','F','Basta uma das proposições ser falsa para a conjunção ser falsa.'],
 ['P é F e Q é V. Qual é o valor de P ∨ Q?','V','V','A disjunção inclusiva é verdadeira se pelo menos uma proposição for verdadeira.'],
